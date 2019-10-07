@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <style>
+        .validation-message {
+            font-style: normal;
+            font-size: 14px;
+            color: #FF1C19;
+        }
+    </style>
+
+    <title>Change User</title>
+</head>
+<body class="bg-light">
+<div class="container">
+
+    <div class="py-5 text-center">
+        <h2>Редоктирование пользователя</h2>
+        <p class="lead">Измените нужные поля и нажмите кнопку 'Редактировать пользователя'</p>
+    </div>
+
+    <form enctype="multipart/form-data" action="#" th:action="@{'/change/' + ${login}}" th:object="${user}"
+          th:method="put" class="needs-validation" novalidate>
+        <div class="row">
+            <div  style="margin: auto" class="col-md-6 col-md-offset-3">
+                <h4 style="text-align: center" class="mb-3">Поля для заполнения</h4>
+
+                <div class="mb-3">
+                    <label for="login">Login</label>
+                    <input type="text" th:field="*{login}" placeholder="Enter Login" id="login"
+                           class="form-control"  required/>
+                    <label th:if="${#fields.hasErrors('login')}" th:errors="*{login}"
+                           class="validation-message"></label>
+                </div>
+
+                <div class="mb-3">
+                    <label for="fullName">Full name</label>
+                    <input type="text" th:field="*{fullName}" placeholder="Enter your full name" id="fullName"
+                           class="form-control"  required/>
+                    <label th:if="${#fields.hasErrors('fullName')}" th:errors="*{fullName}"
+                           class="validation-message"></label>
+                </div>
+
+                <div class="mb-3">
+                    <label for="dob">Date of Birth</label>
+                    <input type="date" th:field="*{dob}" id="dob"
+                           th:value="${null}"
+                           class="form-control"  required/>
+                    <label th:if="${#fields.hasErrors('dob')}" th:errors="*{dob}"
+                           class="validation-message"></label>
+                </div>
+
+                <div class="mb-3">
+                    <label for="gender">Gender</label>
+                    <br>
+                    <select id="gender" th:field="*{gender}" required>
+                        <option th:value="${null}" selected>Select Gender</option>
+                        <option th:each="gend : ${T(com.example.test.model.Gender).values()}"
+                                th:value="${gend}" th:text="${gend.getDisplayName()}"></option>
+                    </select>
+                    <br>
+                    <label th:if="${#fields.hasErrors('gender')}" th:errors="*{gender}"
+                           class="validation-message"></label>
+                </div>
+                <span th:utext="${message}"></span>
+
+                <hr class="mb-4">
+                <button class="btn btn-primary btn-lg btn-block" type="submit" value="Submit">Редактировать пользователя</button>
+            </div>
+        </div>
+    </form>
+    <div class="row">
+        <div class="col">
+        </div>
+
+        <div class="col col-lg-3">
+            <hr class="mb-4">
+            <form th:action="@{/}" th:method="get">
+                <button class="btn btn-primary btn-lg btn-block" type="submit">To Start Page</button>
+            </form>
+            <hr class="mb-4">
+        </div>
+
+    </div>
+
+</div>
+</div>
+</div>
+
+<br/><br/><br/>
+
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+</body>
+</html>
